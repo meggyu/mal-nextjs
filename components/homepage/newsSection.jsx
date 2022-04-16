@@ -68,7 +68,7 @@ const NewsSection = (props) => {
         return (
           <Article key={post.id}>
             <Moment className="details" format="MM/DD/YYYY, HH:mm">{post.created_at}</Moment>
-            <a href={`https://myanimelist.net/news/${post.id}`} target="_blank">
+            <a href={`https://myanimelist.net/news/${post.id}`} target="_blank" rel="noreferrer">
               <h1>{item.title}</h1>
             </a>
             {item.posts.length > 0 &&
@@ -76,7 +76,7 @@ const NewsSection = (props) => {
                 <p className="snippet" dangerouslySetInnerHTML={createMarkup(parsedSnippet)}></p>
                 <ArticleFooter>
                   <div className="details">✎ Written by {post.created_by.name}</div>
-                  <a href={`https://myanimelist.net/news/${post.id}`} target="_blank">
+                  <a href={`https://myanimelist.net/news/${post.id}`} target="_blank" rel="noreferrer">
                     <button className="primary">Keep reading →</button>
                   </a>
                 </ArticleFooter>

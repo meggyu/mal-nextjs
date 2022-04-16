@@ -225,14 +225,14 @@ const DetailPage = ({ details, recommendedAnime }) => {
           {details.background ?
             <div>{details.background}</div>
             :
-            <p>No background information has been added to this title. Help improve our database by adding background information <a target="_blank" href={`https://myanimelist.net/dbchanges.php?aid=${details.id}&t=background`}>here</a>.</p>
+            <p>No background information has been added to this title. Help improve our database by adding background information <a target="_blank" href={`https://myanimelist.net/dbchanges.php?aid=${details.id}&t=background`} rel="noreferrer">here</a>.</p>
           }
         </Synopsis>
       </MainSection>
 
       <RecommendedSection>
         <h2>Explore Recommendations</h2>
-        <p>Here're what other users recommend based on this title.</p>
+        <p>Here’re what other users recommend based on this title.</p>
         <List anime={recommendedAnime} />
       </RecommendedSection>
 

@@ -48,8 +48,8 @@ const HorizontalList = (props) => {
     <HorizontalListWrapper>
       {anime.map(item => {
         return (
-          <a href={`/anime/${item.id}`}>
-            <ListItem key={item.id}>
+          <a key={item.id} href={`/anime/${item.id}`}>
+            <ListItem>
               <img src={item.main_picture.medium} alt={item.title} />
               <div className="detailCard">
                 <h4>{item.title}</h4>

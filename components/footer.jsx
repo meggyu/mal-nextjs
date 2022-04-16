@@ -23,11 +23,13 @@ const Footer = () => {
   const footerLinks = [
     {
       title: 'Home',
-      href: '/#top'
+      href: 'https://myanimelist.net/',
+      external: true
     },
     {
       title: 'About',
-      href: '/about'
+      href: 'https://myanimelist.net/about.php',
+      external: true
     },
     {
       title: 'Press Room',
@@ -80,7 +82,14 @@ const Footer = () => {
     <FooterWrapper>
       <div className="footerLinks">
         {footerLinks.map(item => (
-          <a href={item.href} target={item.external ? '_blank' : ''}>{item.title}</a>
+          <a 
+            key={item.title}
+            href={item.href}
+            target={item.external ? '_blank' : ''}
+            rel="noreferrer"
+          >
+            {item.title}
+          </a>
         ))}
       </div>
       <div className="copyright">

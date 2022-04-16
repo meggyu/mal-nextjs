@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 const NavigationWrapper = styled.div`
@@ -13,7 +14,7 @@ const NavigationWrapper = styled.div`
 	right: 0;
 	background: linear-gradient(to top,rgba(27,27,27,0) 0%, rgba(27,27,27,0.7) 100%);
 
-	a.logo {
+	.logo {
 		font-weight: bold;
 		font-size: 20px;
 	}
@@ -77,10 +78,20 @@ const Navigation = () => {
 
 	return (
 		<NavigationWrapper>
-			<a className="logo" href="/#top">MyAnimeList.net</a>
+			<div className="logo"><Link href="/#top">MyAnimeList.net</Link></div>
 			<NavigationList>
         {navigationItems.map((item) => (
-          <a key={item.title} href={item.href} target={item.external ? '_blank' : ''}>{item.title}</a>
+					<div key={item.title}>
+						{item.external ?
+							<a
+								href={item.href}
+								target={item.external ? '_blank' : ''}
+								rel="noreferrer"
+							>{item.title}</a>
+							:
+							<Link href={item.href}>{item.title}</Link>
+						}
+					</div>
         ))}
 			</NavigationList>
 			<img src="img/search-icon.png" className="search" alt="Search" />

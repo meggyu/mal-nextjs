@@ -72,7 +72,7 @@ const ForumSection = (props) => {
             <Initial color={initialColor}><h2>{el.created_by.name[0].toUpperCase()}</h2></Initial>
             <Post>
               <div className="details author">{el.created_by.name} wrote...</div>
-              <a href={`https://myanimelist.net/forum/?topicid=${el.id}`} target="_blank">
+              <a href={`https://myanimelist.net/forum/?topicid=${el.id}`} target="_blank" rel="noreferrer">
                 <div className="textBubble">
                   <h4>{el.title}</h4>
                   <div className="details">
@@ -81,7 +81,7 @@ const ForumSection = (props) => {
                 </div>
               </a>
               <Comments>
-                <a href={`https://myanimelist.net/forum/?topicid=${el.id}`} target="_blank">
+                <a href={`https://myanimelist.net/forum/?topicid=${el.id}`} target="_blank" rel="noreferrer">
                   {el.number_of_posts} {el.number_of_posts != 1 ? 'replies' : 'reply'}
                 </a>
               </Comments>
