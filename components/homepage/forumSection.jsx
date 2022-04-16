@@ -1,82 +1,91 @@
 import React from 'react';
-import Moment from 'react-moment';
+import moment from 'moment';
 import styled from 'styled-components';
 
-const ForumWrapper = styled.div`
-  
-`;
+const colorArray = [
+  "#e3bd41",
+  "#46903c",
+  "#c97821",
+  "#ca5959",
+  "#945ebd",
+  "#25558f"
+];
+
+const ForumWrapper = styled.div``;
 
 const Forum = styled.div`
-  padding: 30px;
-  border: 3px solid #262626;
-  border-radius: 15px;
   margin: 20px 0;
   display: flex;
   align-items: center;
 `;
 
-const Initial = styled.div`
-  width: 70px;
-  height: 70px;
-  border: 2px solid #e3bd41;
-  border-radius: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #e3bd41;
-`;
+const Initial = styled.div(props => ({
+  width: '50px',
+  height: '50px',
+  border: `2px solid ${props.color}`,
+  'border-radius': '100px',
+  display: 'flex',
+  'justify-content': 'center',
+  'align-items': 'center',
+  color: props.color
+}));
 
 const Post = styled.div`
-  margin: 0 20px;
+  margin-left: 20px;
   flex: 1;
 
-  h3 {
-    margin-top: 0;
+  .author {
+    margin-left: 15px;
+  }
+
+  .textBubble {
+    background-color: #262626;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+  }
+
+  h4 {
+    margin: 0 0 10px 0; 
   }
 `;
 
 const Comments = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 100px;
-
-  img.commentIcon {
-    filter: invert(1);
-    width: 30px;
-    height: 30px;
-  }
-
-  h4 {
-    margin: 10px;
-  }
+  text-align: right;
 `;
 
 const ForumSection = (props) => {
   const { forums } = props;
 
+  const getRandomNum = (max) => {
+    return Math.floor(Math.random() * max);
+  };
+
   return (
     <ForumWrapper>
       {forums && forums.data.map(el => {
+        const randomNum = getRandomNum(6);
+        const initialColor = colorArray[randomNum];
+
         return (
           <Forum key={el.id}>
-            <Initial><h1>{el.created_by.name[0].toUpperCase()}</h1></Initial>
+            <Initial color={initialColor}><h2>{el.created_by.name[0].toUpperCase()}</h2></Initial>
             <Post>
+              <div className="details author">{el.created_by.name} wrote...</div>
               <a href={`https://myanimelist.net/forum/?topicid=${el.id}`} target="_blank">
-                <h3>{el.title}</h3>
+                <div className="textBubble">
+                  <h4>{el.title}</h4>
+                  <div className="details">
+                    {moment(el.created_at).fromNow()}
+                  </div>
+                </div>
               </a>
-              <div className="details">
-                Posted by {el.created_by.name} at <Moment format="MM/DD/YYYY, HH:mm">{el.created_at}</Moment>
-              </div>
+              <Comments>
+                <a href={`https://myanimelist.net/forum/?topicid=${el.id}`} target="_blank">
+                  {el.number_of_posts} {el.number_of_posts != 1 ? 'replies' : 'reply'}
+                </a>
+              </Comments>
             </Post>
-            <Comments>
-              <a href={`https://myanimelist.net/forum/?topicid=${el.id}`} target="_blank">
-                <img className="commentIcon" src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_mode_comment_48px-512.png" />
-                <h4>{el.number_of_posts} {el.number_of_posts != 1 ? 'replies' : 'reply'}</h4>
-              </a>
-            </Comments>
           </Forum>
         )
       })}

@@ -27,7 +27,7 @@ const ListItem = styled.div`
     margin-top: -20px;
     padding: 10px 15px;
     border-radius: 5px;
-    height: 170px;
+    height: 200px;
     transition: all 0.3s ease-in-out;
   }
 
@@ -52,9 +52,9 @@ const HorizontalList = (props) => {
             <ListItem key={item.id}>
               <img src={item.main_picture.medium} alt={item.title} />
               <div className="detailCard">
-                <h3>{item.title}</h3>
-                <div className="details">⭐ {item.mean}</div>
-                <div className="details">{Intl.NumberFormat('en-US').format(item.num_list_users)} users</div>
+                <h4>{item.title}</h4>
+                <div className="details">⭐ {item.mean || 'N/A'}</div>
+                <div className="details">Episodes: {item.num_episodes === 0 || !item.num_episodes ? '?' : item.num_episodes} ({item.media_type.toUpperCase()})</div>
               </div>
             </ListItem>
           </a>

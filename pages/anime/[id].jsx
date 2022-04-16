@@ -4,18 +4,18 @@ import moment from 'moment';
 import get from 'lodash/get';
 import styled from 'styled-components';
 
+import List from '../../components/common/list';
 import capitalize from '../../helpers/capitalize';
 import { getAnimeById } from '../../helpers/apiUrls';
-import createMarkup from '../../helpers/createMarkup';
 
 const DetailWrapper = styled.div`
-  margin-top: 50px;
+  margin-top: 150px;
   display: flex;
 `
 
 const MainSection = styled.div`
-  flex: 1;
-  margin-right: 50px;
+  flex: 2.5;
+  margin-right: 60px;
 
   h1 {
     margin-bottom: 5px;
@@ -103,9 +103,11 @@ const Synopsis = styled.div`
   white-space: pre-wrap;
 `;
 
-const RecommendedSection = styled.div``;
+const RecommendedSection = styled.div`
+  flex: 1;
+`;
 
-const DetailPage = ({details}) => {
+const DetailPage = ({ details, recommendedAnime }) => {
   
   // Build out the data to be more readable
   const title = details.title;
@@ -158,6 +160,12 @@ const DetailPage = ({details}) => {
     "Aired": formatAiredDate(details.start_date, details.end_date),
     "Duration": `${Math.round(details.average_episode_duration / 60)} minutes`
   }
+
+  details.recommendations.forEach((element, index) => {
+    if (index < 5) {
+      recommendedAnime[index].num_list_users = element.num_recommendations;
+    }
+  });
 
   return (
     <DetailWrapper>
@@ -224,7 +232,8 @@ const DetailPage = ({details}) => {
 
       <RecommendedSection>
         <h2>Explore Recommendations</h2>
-        <p>Here're what other users are recommending based on this title.</p>
+        <p>Here're what other users recommend based on this title.</p>
+        <List anime={recommendedAnime} />
       </RecommendedSection>
 
     </DetailWrapper>
@@ -278,9 +287,32 @@ export async function getServerSideProps({ params }) {
 			return err;
 		});
 
+  const recommendedIds = [];
+  details.recommendations.forEach((element, index) => {
+    if (index < 5) recommendedIds.push(element.node.id);
+  });
+
+  const recommendedArray = Promise.all(recommendedIds.map(id => {
+    const fields = ['id', 'title', 'main_picture', 'mean', 'num_episodes', 'media_type'];
+		const animeUrl = getAnimeById(id, fields);
+		return axios
+			.get(animeUrl, {
+				headers: { 'X-MAL-CLIENT-ID': 'e348f8ee5084215dcced2fd6ba8fb012' }
+			})
+			.then(({ data }) => {
+				return data;
+
+			})
+			.catch(({ err }) => {
+				console.log(err);
+				return err;
+			});
+	}));
+
   return {
     props: {
-      details
+      details,
+      recommendedAnime: await recommendedArray
     }
   }
 }

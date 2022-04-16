@@ -48,18 +48,6 @@ const ArticleFooter = styled.div`
   a:hover {
     text-decoration: none;
   }
-
-  .button {
-    background-color: #2e51a2;
-    border-radius: 5px;
-    padding: 15px;
-    font-weight: bold;
-    transition: all 0.5s ease-in-out;
-
-    &:hover {
-      background-color: #262626;
-    }
-  }
 `;
 
 const NewsSection = (props) => {
@@ -89,7 +77,7 @@ const NewsSection = (props) => {
                 <ArticleFooter>
                   <div className="details">✎ Written by {post.created_by.name}</div>
                   <a href={`https://myanimelist.net/news/${post.id}`} target="_blank">
-                    <div className="button">Keep reading →</div>
+                    <button className="primary">Keep reading →</button>
                   </a>
                 </ArticleFooter>
               </>

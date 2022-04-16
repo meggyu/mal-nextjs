@@ -35,15 +35,19 @@ const List = (props) => {
         <Item key={item.id}>
           <h2 className="ranking">{index + 1}</h2>
           <a href={`/anime/${item.id}`}><img src={item.main_picture.medium} alt={item.title} /></a>
+          
           <ItemDetails>
-            <a href={`/anime/${item.id}`}><h3>{item.title}</h3></a>
+            <a href={`/anime/${item.id}`}><h4>{item.title}</h4></a>
             {format !== "simple" &&
               <>
                 <div className="details">⭐ {item.mean || 'N/A'}</div>
-                <div className="details">Episodes: {item.num_episodes === 0 || !item.num_episodes ? '?' : item.num_episodes} ({item.media_type.toUpperCase()})</div>
+                <div className="details">
+                  {Intl.NumberFormat('en-US').format(item.num_list_users)} {item.num_list_users === 1 ? 'user' : 'users'}
+                </div>
               </>
             }
           </ItemDetails>
+
         </Item>
       ))}
     </ListWrapper>

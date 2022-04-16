@@ -49,24 +49,29 @@ const Navigation = () => {
 			href: '/manga'
 		},
 		{
-			title: 'Community',
-			href: '/community'
+			title: 'Forums',
+			href: 'https://myanimelist.net/forum/',
+			external: true
 		},
 		{
-			title: 'Industry',
-			href: '/industry'
+			title: 'News',
+			href: 'https://myanimelist.net/news',
+			external: true
 		},
 		{
 			title: 'Watch',
-			href: '/watch'
+			href: 'https://myanimelist.net/watch/episode',
+			external: true
 		},
 		{
 			title: 'Read',
-			href: '/read'
+			href: 'https://myanimelist.net/store',
+			external: true
 		},
 		{
 			title: 'Help',
-			href: '/help'
+			href: 'https://myanimelist.net/about.php?go=contact',
+			external: true
 		}
 	];
 
@@ -75,7 +80,7 @@ const Navigation = () => {
 			<a className="logo" href="/#top">MyAnimeList.net</a>
 			<NavigationList>
         {navigationItems.map((item) => (
-          <a key={item.title} href={item.href}>{item.title}</a>
+          <a key={item.title} href={item.href} target={item.external ? '_blank' : ''}>{item.title}</a>
         ))}
 			</NavigationList>
 			<img src="img/search-icon.png" className="search" alt="Search" />

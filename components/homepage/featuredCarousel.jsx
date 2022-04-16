@@ -7,7 +7,6 @@ import List from '../common/list';
 
 const FeaturedCarouselWrapper = styled.div`
   height: 950px;
-  margin-bottom: 50px;
 
   .carousel-root {
     width: 100%;
@@ -52,6 +51,7 @@ const Description = styled.div`
 
   h3 {
     text-shadow: 2px 2px 20px #000000;
+    margin-top: 10px;
   }
 `;
 
@@ -109,7 +109,7 @@ const FeaturedCarousel = (props) => {
       <SideList className="slideList">
         <h3 className="section">Spring 2022 Anime</h3>
         <List anime={parsedList} format="simple" />
-        <button className="primary">View more</button>
+        <button className="primary">View more →</button>
       </SideList>
     </FeaturedCarouselWrapper>
   );

@@ -22,8 +22,8 @@ const HomeWrapper = styled.div`
 `;
 
 const LeftSection = styled.div`
-	flex: 3;
-	margin-right: 50px;
+	flex: 2.5;
+	margin-right: 60px;
 `;
 
 const RightSection = styled.div`
@@ -67,29 +67,36 @@ const Home = ({
 			<HomeWrapper>
 				<LeftSection>
 					<h3 className="section">Top Airing Anime</h3>
-					<HorizontalList anime={popularAnime} />
+					<HorizontalList anime={airingAnime} />
+
+					<h3 className="section">Top Upcoming Anime</h3>
+					<HorizontalList anime={upcomingAnime} />
 
 					<h3 className="section">News</h3>
 					{isNewsLoading ?
-						<LoadingCard />
+						<>
+							<LoadingCard height={430} />
+							<LoadingCard height={430} />
+						</>
 						:
 						<NewsSection news={news} />
-					}
-
-					<h2 className="sectionHeading">Forums</h2>
-					{isForumsLoading ?
-						<LoadingCard />
-						:
-						<ForumSection forums={forumBoards} />
 					}
 				</LeftSection>
 
 				<RightSection>
-					<h2 className="sectionHeading">Top Airing Anime</h2>
-					<List anime={airingAnime} />
+					<h3 className="section">Forums</h3>
+					{isForumsLoading ?
+						<>
+							<LoadingCard height={150} />
+							<LoadingCard height={150} />
+							<LoadingCard height={150} />
+						</>
+						:
+						<ForumSection forums={forumBoards} />
+					}
 
-					<h2 className="sectionHeading">Top Upcoming Anime</h2>
-					<List anime={upcomingAnime} />
+					<h3 className="section">Most Popular Anime</h3>
+					<List anime={popularAnime} />
 				</RightSection>
 			</HomeWrapper>
 		</>
@@ -141,6 +148,7 @@ export async function getStaticProps() {
 
 			})
 			.catch(({ err }) => {
+				console.log(err);
 				return err;
 			});
 	}));
