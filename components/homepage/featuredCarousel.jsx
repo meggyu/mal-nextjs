@@ -72,11 +72,11 @@ const SideList = styled.div`
 const FeaturedCarousel = (props) => {
   const { featured } = props;
   const backgroundImages = [
-    'https://images.saymedia-content.com/.image/t_share/MTc1MTE0NDgwNDEyNTM0NTk2/animes-like-tate-no-yuusha-no-nariagari.jpg',
-    'https://assets-prd.ignimgs.com/2022/04/10/spy-x-family-blogroll-1649617057064.jpg',
-    'https://cdn.thetealmango.com/wp-content/uploads/2022/03/ks2.jpg',
+    'https://i0.wp.com/www.animegeek.com/wp-content/uploads/2021/03/The-Devil-is-a-Part-Timer-Season-2-release-date-Hataraku-Maou-sama-Season-2-2021.jpg?fit=1200%2C675&ssl=1',
     'https://www.otaquest.com/wp-content/uploads/2021/02/detective-conan-and-shinichi-1024x533.jpg',
-    'https://s199.imacdn.com/ta/2022/03/27/d0b843980a6153fb_4330e3c88cb2bddb_9186516483669944734221.jpg'
+    'https://images-geeknative-com.exactdn.com/wp-content/uploads/2022/06/22110356/Overlord_IV-cover-b-scaled.jpg?strip=all&lossy=1&sharp=1&ssl=1',
+    'https://randomc.net/image/Yofukashi%20no%20Uta/Yofukashi%20no%20Uta%20-%2001%20-%20Large%2034.jpg',
+    'https://img1.ak.crunchyroll.com/i/spire1-tmb/81100674a7f7124d0c60a641c83fbdd61659111945_main.jpg'
   ];
   const parsedList = [];
 
@@ -99,7 +99,7 @@ const FeaturedCarousel = (props) => {
                 <Background src={backgroundImages[index]} />
                 <Description>
                   <h1>{item.title}</h1>
-                  <h3 className="section">Spring 2022</h3>
+                  <h3 className="section">Summer 2022</h3>
                 </Description>
               </div>
             </a>
@@ -107,7 +107,7 @@ const FeaturedCarousel = (props) => {
         })}
       </Carousel>
       <SideList className="slideList">
-        <h3 className="section">Spring 2022 Anime</h3>
+        <h3 className="section">Summer 2022 Anime</h3>
         <List anime={parsedList} format="simple" />
         <button className="primary">View more →</button>
       </SideList>

@@ -2,18 +2,15 @@
 
 @import './butons.css';
 
-html,
-body {
+html, body {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: #1B1B1B;
   color: #ffffff;
   padding: 0;
   margin: 0;
   font-family: 'IBM Plex Sans', sans-serif;
   line-height: 1.5;
+  white-space: pre-wrap;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
@@ -35,8 +32,18 @@ p > a {
   box-sizing: border-box;
 }
 
-.content {
-  width: 1700px;
+.page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+@media screen and (min-width: 1920px) {
+  .page {
+    width: 1700px;
+    flex-direction: row;
+  }
 }
 
 .details {

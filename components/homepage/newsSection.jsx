@@ -1,5 +1,5 @@
 import React from 'react';
-import Moment from 'react-moment';
+import moment from 'moment';
 import styled from 'styled-components';
 
 import textParser from '../../helpers/textParser';
@@ -67,7 +67,7 @@ const NewsSection = (props) => {
         
         return (
           <Article key={post.id}>
-            <Moment className="details" format="MM/DD/YYYY, HH:mm">{post.created_at}</Moment>
+            <div className="details">{moment(post.created_at).format("MM/DD/YYYY, HH:mm")}</div>
             <a href={`https://myanimelist.net/news/${post.id}`} target="_blank" rel="noreferrer">
               <h1>{item.title}</h1>
             </a>

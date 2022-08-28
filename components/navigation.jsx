@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
+
+import Search from './common/search';
 
 const NavigationWrapper = styled.div`
 	display: flex;
@@ -10,6 +12,7 @@ const NavigationWrapper = styled.div`
 	width: 100%;
 	z-index: 2;
 	padding: 30px;
+	top: 0;
 	left: 0;
 	right: 0;
 	background: linear-gradient(to top,rgba(27,27,27,0) 0%, rgba(27,27,27,0.7) 100%);
@@ -19,12 +22,21 @@ const NavigationWrapper = styled.div`
 		font-size: 20px;
 	}
 
+	a {
+		transition: all 0.5s ease-in-out;
+	}
+
 	a:hover {
 		text-decoration: none;
+		text-shadow: 2px 2px 10px #ffffff;
 	}
 
 	img.search:hover {
 		cursor: pointer;
+	}
+
+	@media screen and (max-width: 1080px) {
+		display: none;
 	}
 `;
 
@@ -39,7 +51,65 @@ const NavigationList = styled.div`
   }
 `;
 
+const MobileNavigationWrapper = styled.div`
+	display: block;
+	position: fixed;
+	width: 100%;
+	top: 0;
+
+	@media screen and (min-width: 1080px) {
+		display: none;
+	}
+
+	.logo {
+		font-weight: bold;
+		font-size: 18px;
+	}
+`
+
+const Navbar = styled.div`
+	width: 100%;
+	height: 56px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #000000;
+	padding: 0 20px;
+
+	.hamburgerMenu {
+		font-size: 18px;
+		font-weight: bold;
+	}
+`;
+
+const SlideoutMenu = styled.div`
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	right: -500px;
+	width: 100%;
+	height: 100vh;
+	background-color: #000000;
+	transition: right 0.5s ease-in-out;
+
+	&.active {
+		right: 0;
+	}
+
+	.list {
+		padding: 56px 20px 0 20px;
+		font-size: 20px;
+
+		div {
+			margin-bottom: 20px;
+		}
+	}
+`
+
 const Navigation = () => {
+
+	const [isNavOpen, setIsNavOpen] = useState("");
+
 	const navigationItems = [
 		{
 			title: 'Anime',
@@ -76,26 +146,61 @@ const Navigation = () => {
 		}
 	];
 
+	console.log(isNavOpen);
+
 	return (
-		<NavigationWrapper>
-			<div className="logo"><Link href="/#top">MyAnimeList.net</Link></div>
-			<NavigationList>
-        {navigationItems.map((item) => (
-					<div key={item.title}>
-						{item.external ?
-							<a
-								href={item.href}
-								target={item.external ? '_blank' : ''}
-								rel="noreferrer"
-							>{item.title}</a>
-							:
-							<Link href={item.href}>{item.title}</Link>
-						}
+		<>
+			<NavigationWrapper>
+				<div className="logo"><Link className="navLink" href="/#top">MyAnimeList.net</Link></div>
+				<NavigationList>
+					{navigationItems.map((item) => (
+						<div key={item.title}>
+							{item.external ?
+								<a
+									className="navLink"
+									href={item.href}
+									target={item.external ? '_blank' : ''}
+									rel="noreferrer"
+								>{item.title}</a>
+								:
+								<Link className="navLink" href={item.href}>{item.title}</Link>
+							}
+						</div>
+					))}
+				</NavigationList>
+				<Search />
+			</NavigationWrapper>
+
+			<MobileNavigationWrapper>
+				<Navbar>
+					<div className="logo"><Link className="navLink" href="/#top">MyAnimeList.net</Link></div>
+					<div className="hamburgerMenu" onClick={() => setIsNavOpen("active")}>≡</div>
+				</Navbar>
+				<SlideoutMenu className={isNavOpen}>
+					<Navbar>
+						<div className="logo"><Link className="navLink" href="/#top">MyAnimeList.net</Link></div>
+						<div className="hamburgerMenu" onClick={() => setIsNavOpen("")}>X</div>
+					</Navbar>
+
+					<div className="list">
+						{navigationItems.map((item) => (
+								<div key={item.title}>
+									{item.external ?
+										<a
+											className="navLink"
+											href={item.href}
+											target={item.external ? '_blank' : ''}
+											rel="noreferrer"
+										>{item.title}</a>
+										:
+										<Link className="navLink" href={item.href}>{item.title}</Link>
+									}
+								</div>
+							))}
 					</div>
-        ))}
-			</NavigationList>
-			<img src="img/search-icon.png" className="search" alt="Search" />
-		</NavigationWrapper>
+				</SlideoutMenu>
+			</MobileNavigationWrapper>
+		</>
 	);
 }
 

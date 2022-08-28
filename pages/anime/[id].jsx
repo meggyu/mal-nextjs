@@ -11,11 +11,18 @@ import { getAnimeById } from '../../helpers/apiUrls';
 const DetailWrapper = styled.div`
   margin-top: 150px;
   display: flex;
+  justify-content: center;
+
+  @media screen and (max-width: 720px) {
+    margin-top: 56px;
+  }
 `
 
 const MainSection = styled.div`
-  flex: 2.5;
-  margin-right: 60px;
+  @media screen and (min-width: 1080px) {
+    flex: 2.5;
+    margin-right: 60px;
+  }
 
   h1 {
     margin-bottom: 5px;
@@ -28,7 +35,13 @@ const MainSection = styled.div`
 
 const Poster = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 20px 0;
+
+  @media screen and (min-width: 1080px) {
+    flex-direction: row;
+  }
 
   img {
     width: 280px;
@@ -39,7 +52,10 @@ const Stats = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 20px;
+
+  @media screen and (min-width: 1080px) {
+    margin-left: 20px;
+  }
 
   .boxes {
     display: flex;
@@ -52,12 +68,19 @@ const Stats = styled.div`
     }
 
     .box {
-      border: 3px solid #262626;
-      padding: 15px;
-      border-radius: 10px;
+      padding: 10px;
       text-align: center;
-      width: 180px;
       margin-right: 20px;
+
+      &:nth-last-child(1) {
+        margin-right: 0;
+      }
+
+      @media screen and (min-width: 1080px) {
+        border: 3px solid #262626;
+        border-radius: 10px;
+        width: 180px;
+      }
     }
   }
 
@@ -100,7 +123,6 @@ const Genres = styled.div`
 
 const Synopsis = styled.div`
   margin-top: 30px;
-  white-space: pre-wrap;
 `;
 
 const RecommendedSection = styled.div`
@@ -115,7 +137,7 @@ const DetailPage = ({ details, recommendedAnime }) => {
   const posterImg = details.main_picture.large;
   const boxes = [
     {
-      title: `⭐ ${get(details, 'mean', 'N/A')}`,
+      title: `★ ${get(details, 'mean', 'N/A')}`,
       details: `${Intl.NumberFormat('en-US').format(details.num_scoring_users)} users`
     },
     {
@@ -169,73 +191,74 @@ const DetailPage = ({ details, recommendedAnime }) => {
 
   return (
     <DetailWrapper>
-      <MainSection>
-        <h1>{title}</h1>
-        <h2 className="details altTitle">{altTitle}</h2>
-        
-        <Poster>
-          <img src={posterImg} />
+      <div className="page">
+        <MainSection>
+          <h1>{title}</h1>
+          <h2 className="details altTitle">{altTitle}</h2>
           
-          <Stats>
-            <div className="boxes">
-              {boxes.map(box => {
+          <Poster>
+            <img src={posterImg} />
+            
+            <Stats>
+              <div className="boxes">
+                {boxes.map(box => {
+                  return (
+                    <div key={box.title} className="box">
+                      <h2>{box.title}</h2>
+                      <span className="details">{box.details}</span>
+                    </div>
+                  );
+                })}
+              </div>
+              
+              <div className="ratings details">
+                <div>{season}</div>
+                <div>{parentalRating}</div>
+                <div>{media}</div>
+              </div>
+              
+              <div className="information">
+                <div className="left">
+                  {Object.keys(information).map(el => {
+                    return <p key={el}>{el}</p>;
+                  })}
+                </div>
+                <div className="right">
+                  {Object.values(information).map(el => {
+                    return <p key={el}>{el}</p>;
+                  })}
+                </div>
+              </div>
+            </Stats>
+          </Poster>
+          
+          <Genres>
+            {details.genres.map((el, index) => {
+              if (index < 3) {
                 return (
-                  <div key={box.title} className="box">
-                    <h2>{box.title}</h2>
-                    <span className="details">{box.details}</span>
-                  </div>
-                );
-              })}
-            </div>
-            
-            <div className="ratings details">
-              <div>{season}</div>
-              <div>{parentalRating}</div>
-              <div>{media}</div>
-            </div>
-            
-            <div className="information">
-              <div className="left">
-                {Object.keys(information).map(el => {
-                  return <p key={el}>{el}</p>;
-                })}
-              </div>
-              <div className="right">
-                {Object.values(information).map(el => {
-                  return <p key={el}>{el}</p>;
-                })}
-              </div>
-            </div>
-          </Stats>
-        </Poster>
-        
-        <Genres>
-          {details.genres.map((el, index) => {
-            if (index < 3) {
-              return (
-                <div key={el.id} className="genre">{el.name}</div>
-              );              
+                  <div key={el.id} className="genre">{el.name}</div>
+                );              
+              }
+            })}
+          </Genres>
+          
+          <Synopsis>
+            <div>{details.synopsis}</div>
+            <h2 className="sectionHeading">Background</h2>
+            {details.background ?
+              <div>{details.background}</div>
+              :
+              <p>No background information has been added to this title. Help improve our database by adding background information <a target="_blank" href={`https://myanimelist.net/dbchanges.php?aid=${details.id}&t=background`} rel="noreferrer">here</a>.</p>
             }
-          })}
-        </Genres>
-        
-        <Synopsis>
-          <div>{details.synopsis}</div>
-          <h2 className="sectionHeading">Background</h2>
-          {details.background ?
-            <div>{details.background}</div>
-            :
-            <p>No background information has been added to this title. Help improve our database by adding background information <a target="_blank" href={`https://myanimelist.net/dbchanges.php?aid=${details.id}&t=background`} rel="noreferrer">here</a>.</p>
-          }
-        </Synopsis>
-      </MainSection>
+          </Synopsis>
+        </MainSection>
 
-      <RecommendedSection>
-        <h2>Explore Recommendations</h2>
-        <p>Here’re what other users recommend based on this title.</p>
-        <List anime={recommendedAnime} />
-      </RecommendedSection>
-
+        <RecommendedSection>
+          <h2>Explore Recommendations</h2>
+          <p>Here’re what other users recommend based on this title.</p>
+          <List anime={recommendedAnime} />
+        </RecommendedSection>
+      </div>
     </DetailWrapper>
   )
 };

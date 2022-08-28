@@ -1,14 +1,14 @@
 import React from 'react';
 import Footer from './footer';
+import HTMLHead from './htmlhead';
 import Navigation from './navigation';
 
 const Layout = ({ children }) => {
   return (
     <>
+      <HTMLHead />
       <Navigation />
-      <div className="content">
-        <main>{children}</main>
-      </div>
+      <main>{children}</main>
       <Footer />
     </>
   );

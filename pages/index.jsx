@@ -18,7 +18,8 @@ import FeaturedCarousel from '../components/homepage/featuredCarousel';
 import NewsSection from "../components/homepage/newsSection";
 
 const HomeWrapper = styled.div`
-	display: flex;	
+	display: flex;
+	justify-content: center;
 `;
 
 const LeftSection = styled.div`
@@ -64,40 +65,43 @@ const Home = ({
 	return (
 		<>
 			<FeaturedCarousel featured={seasonalAnime} />
+			
 			<HomeWrapper>
-				<LeftSection>
-					<h3 className="section">Top Airing Anime</h3>
-					<HorizontalList anime={airingAnime} />
+				<div className="page">
+					<LeftSection>
+						<h3 className="section">Top Airing Anime</h3>
+						<HorizontalList anime={airingAnime} />
 
-					<h3 className="section">Top Upcoming Anime</h3>
-					<HorizontalList anime={upcomingAnime} />
+						<h3 className="section">Top Upcoming Anime</h3>
+						<HorizontalList anime={upcomingAnime} />
 
-					<h3 className="section">News</h3>
-					{isNewsLoading ?
-						<>
-							<LoadingCard height={430} />
-							<LoadingCard height={430} />
-						</>
-						:
-						<NewsSection news={news} />
-					}
-				</LeftSection>
+						<h3 className="section">News</h3>
+						{isNewsLoading ?
+							<>
+								<LoadingCard height={430} />
+								<LoadingCard height={430} />
+							</>
+							:
+							<NewsSection news={news} />
+						}
+					</LeftSection>
 
-				<RightSection>
-					<h3 className="section">Forums</h3>
-					{isForumsLoading ?
-						<>
-							<LoadingCard height={150} />
-							<LoadingCard height={150} />
-							<LoadingCard height={150} />
-						</>
-						:
-						<ForumSection forums={forumBoards} />
-					}
+					<RightSection>
+						<h3 className="section">Forums</h3>
+						{isForumsLoading ?
+							<>
+								<LoadingCard height={150} />
+								<LoadingCard height={150} />
+								<LoadingCard height={150} />
+							</>
+							:
+							<ForumSection forums={forumBoards} />
+						}
 
-					<h3 className="section">Most Popular Anime</h3>
-					<List anime={popularAnime} />
-				</RightSection>
+						<h3 className="section">Most Popular Anime</h3>
+						<List anime={popularAnime} />
+					</RightSection>
+				</div>
 			</HomeWrapper>
 		</>
 	);
@@ -105,7 +109,7 @@ const Home = ({
 
 export async function getStaticProps() {
 	// Get Seasonal Anime
-	const seasonalUrl = getAnimeBySeason(2022, 'spring', 5);
+	const seasonalUrl = getAnimeBySeason(2022, 'summer', 5);
 	const seasonalAnime = await axios
 		.get(seasonalUrl, {
 			headers: { 'X-MAL-CLIENT-ID': 'e348f8ee5084215dcced2fd6ba8fb012' }

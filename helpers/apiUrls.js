@@ -49,6 +49,10 @@ export const getAnimeUrlByRanking = (rankingType, limit, fields) => {
   return url;
 };
 
+export const getAnimeByQuery = (query) => {
+  return `https://api.myanimelist.net/v2/anime?q=one&limit=4`
+}
+
 export const baseMangaUrl = 'https://api.myanimelist.net/v2/manga/';
 
 export const getForumsByBoardId = (boardId, offset, limit) => {

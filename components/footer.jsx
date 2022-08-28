@@ -13,6 +13,14 @@ const FooterWrapper = styled.div`
 
   .footerLinks {
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media screen and (min-width: 1080px) {
+      flex-direction: row;
+    }
+
     a {
       margin: 0 10px;
     }
