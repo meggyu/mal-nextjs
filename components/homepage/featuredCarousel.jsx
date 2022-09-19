@@ -1,30 +1,31 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import get from 'lodash/get';
+import styled, { css } from 'styled-components';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import List from '../common/list';
-
 const FeaturedCarouselWrapper = styled.div`
-  height: 950px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+  margin-top: 61px;
+  background-color: #000000;
 
   .carousel-root {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    right: 0;
-  }
-
-  &:hover .slideList {
-    right: 0;
+    width: 1200px;
   }
 `;
 
 const Background = styled.img`
-  width: inherit;
-  height: 950px;
+  width: 1200px;
   object-fit: cover;
   object-position: center;
+  
+  @media screen and (min-width: 1280px) {
+    height: 45vh;
+  }
 `;
 
 const Description = styled.div`
@@ -55,28 +56,73 @@ const Description = styled.div`
   }
 `;
 
-const SideList = styled.div`
-  position: absolute;
-  right: -300px;
-  width: 500px;
-  height: 950px;
+const SliderThumbs = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 0 50px;
-  background: linear-gradient(to right, rgba(27,27,27,0) 0%, rgba(27, 27, 27, 0.8) 30%, rgba(27, 27, 27, 1) 70%);
-  transition: all 0.5s ease-in-out;
-`;  
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1200px;
+  margin-top: 20px;
+`
+
+const Thumb = styled.div(props => 
+  css`
+    position: relative;
+    width: calc(1200px / 5.5);
+    height: 120px;
+    border: 1.5px solid #ffffff;
+    border-radius: 7px;
+    padding: 5px;
+    transition: transform 0.5s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+    }
+
+    .slideBackground {
+      position: absolute;
+      width: calc(1200px / 5.85);
+      height: 105px;
+      background-image: url(${props.background});
+      background-position: center center;
+      transition: backdrop-filter 0.5s ease-in-out;
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        width: 101%;
+        height: 100%;
+        backdrop-filter: brightness(0.4);
+      }
+    }
+
+    .slideText {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      height: 100%;
+      z-index: 2;
+      padding: 10px;
+
+      h2 {
+        margin: 0;
+      }
+    }
+  `
+);
 
 const FeaturedCarousel = (props) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
   const { featured } = props;
   const backgroundImages = [
-    'https://i0.wp.com/www.animegeek.com/wp-content/uploads/2021/03/The-Devil-is-a-Part-Timer-Season-2-release-date-Hataraku-Maou-sama-Season-2-2021.jpg?fit=1200%2C675&ssl=1',
-    'https://www.otaquest.com/wp-content/uploads/2021/02/detective-conan-and-shinichi-1024x533.jpg',
-    'https://images-geeknative-com.exactdn.com/wp-content/uploads/2022/06/22110356/Overlord_IV-cover-b-scaled.jpg?strip=all&lossy=1&sharp=1&ssl=1',
-    'https://randomc.net/image/Yofukashi%20no%20Uta/Yofukashi%20no%20Uta%20-%2001%20-%20Large%2034.jpg',
-    'https://img1.ak.crunchyroll.com/i/spire1-tmb/81100674a7f7124d0c60a641c83fbdd61659111945_main.jpg'
+    'https://static1.colliderimages.com/wordpress/wp-content/uploads/2022/04/Spy-x-Family.jpg',
+    'https://thecinemaholic.com/wp-content/uploads/2021/09/Screenshot-2021-09-25-221941.jpg',
+    'https://i0.wp.com/twinfinite.net/wp-content/uploads/2021/12/Bleach-6.jpg?ssl=1',
+    'https://assets.pikiran-rakyat.com/crop/0x0:0x0/x/photo/2021/04/13/3396190008.jpg',
+    'https://www.theanimedaily.com/wp-content/uploads/2022/04/Blue-Lock-Anime-Release-Date-1024x576.jpg'
   ];
   const parsedList = [];
 
@@ -85,13 +131,14 @@ const FeaturedCarousel = (props) => {
       <Carousel
         showStatus={false}
         showThumbs={false}
+        selectedItem={currentSlide}
         infiniteLoop
         emulateTouch
         autoPlay
       >
         {featured.data.map((el, index) => {
           const item = el.node;
-          if (index < 3) parsedList.push(item);
+          parsedList.push(item);
 
           return (
             <a key={item.id} href={`/anime/${item.id}`}>
@@ -99,18 +146,33 @@ const FeaturedCarousel = (props) => {
                 <Background src={backgroundImages[index]} />
                 <Description>
                   <h1>{item.title}</h1>
-                  <h3 className="section">Summer 2022</h3>
+                  <h3 className="section">Fall 2022</h3>
                 </Description>
               </div>
             </a>
           )
         })}
       </Carousel>
-      <SideList className="slideList">
-        <h3 className="section">Summer 2022 Anime</h3>
-        <List anime={parsedList} format="simple" />
-        <button className="primary">View more →</button>
-      </SideList>
+      
+      <SliderThumbs>
+        {featured.data.map((el, index) => {
+          const item = el.node;
+
+          return (
+            <Thumb
+              key={item.id}
+              background={get(item, 'main_picture.large')}
+              onClick={() => setCurrentSlide(index)}
+            >
+              <div className="slideBackground"></div>
+              <div className="slideText">
+                <h2 className="ranking">{index + 1}</h2>
+                <b>{item.title}</b>
+              </div>
+            </Thumb>
+          )
+        })}
+      </SliderThumbs>
     </FeaturedCarouselWrapper>
   );
 };

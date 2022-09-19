@@ -12,6 +12,7 @@ const DetailWrapper = styled.div`
   margin-top: 150px;
   display: flex;
   justify-content: center;
+  min-height: 100vh;
 
   @media screen and (max-width: 720px) {
     margin-top: 56px;

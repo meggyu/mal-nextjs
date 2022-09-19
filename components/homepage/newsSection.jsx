@@ -10,6 +10,9 @@ const NewsWrapper = styled.div`
 `;
 
 const Article = styled.div`
+  border-bottom: 1px solid #aaaaaa;
+  margin-bottom: 30px;
+
   img.thumbnail {
     height: 240px;
     float: left;
@@ -25,7 +28,7 @@ const Article = styled.div`
     display: -webkit-box;
     line-height: 1.5;
     height: 240px;
-    -webkit-line-clamp: 10;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;

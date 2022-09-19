@@ -13,7 +13,7 @@ const HorizontalListWrapper = styled.div`
 `;
 
 const ListItem = styled.div`
-  width: 220px;
+  width: calc(1200px / 5.7);
   transition: all 0.3s ease-in-out;
 
   img {
@@ -23,7 +23,7 @@ const ListItem = styled.div`
   }
 
   .detailCard {
-    background-color: #262626;
+    background-color: #151515;
     margin-top: -20px;
     padding: 10px 15px;
     border-radius: 5px;
@@ -36,7 +36,7 @@ const ListItem = styled.div`
     cursor: pointer;
     
     .detailCard {
-      background-color: #151515;
+      background-color: #000000;
     }
   }
 `;

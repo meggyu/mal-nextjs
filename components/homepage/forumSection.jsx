@@ -39,7 +39,7 @@ const Post = styled.div`
   }
 
   .textBubble {
-    background-color: #262626;
+    background-color: #151515;
     padding: 15px;
     border-radius: 10px;
     margin: 10px 0;

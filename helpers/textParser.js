@@ -14,8 +14,10 @@ const textParser = (str) => {
     str = str.replace(/\[size=[0-9]+\]/g, '');
     str = str.replace(/\[\/size]/g, '');
     str = str.replace(/\[\url=/g, '<a target="_blank" href="');
-    str = str.replace(/\[\/url]/g, '</a>');
+    str = str.replace(/\[\/url]/g, '/a>');
     str = str.replace(/\]/g, '">');
+    // str = str.replace(/\[color/g, '<color');
+    // str = str.replace(/\[\/color/g, '</color');
     return str;
   }
 }

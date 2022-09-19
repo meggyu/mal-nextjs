@@ -4,7 +4,7 @@
 
 html, body {
   width: 100%;
-  background-color: #1B1B1B;
+  background-color: #252525;
   color: #ffffff;
   padding: 0;
   margin: 0;
@@ -33,29 +33,28 @@ p > a {
 }
 
 .page {
-  width: 100%;
+  width: 1200px;
   display: flex;
   flex-direction: column;
   padding: 0 20px;
-}
-
-@media screen and (min-width: 1920px) {
-  .page {
-    width: 1700px;
-    flex-direction: row;
-  }
 }
 
 .details {
   color: #bebebe;
 }
 
+h1.section {
+  margin-top: 50px;
+  margin-bottom: 0;
+}
+
 h3.section {
+  display: flex;
+  align-self: flex-start;
   font-weight: 500;
   font-size: 16px;
-  border: 2px solid white;
+  border: 1.5px solid white;
   border-radius: 100px;
   padding: 5px 20px;
-  display: inline-block;
   margin-top: 50px;
 }

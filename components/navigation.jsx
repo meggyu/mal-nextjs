@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, {
+	useState,
+	useEffect
+} from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
@@ -9,13 +12,26 @@ const NavigationWrapper = styled.div`
 	justify-content: space-between;
 	align-items: center;
   position: fixed;
-	width: 100%;
-	z-index: 2;
-	padding: 30px;
+	max-width: 100vw;
+	z-index: 3;
+	padding: 15px 30px;
 	top: 0;
 	left: 0;
 	right: 0;
-	background: linear-gradient(to top,rgba(27,27,27,0) 0%, rgba(27,27,27,0.7) 100%);
+	background: #252525;
+	transition: background 0.5s ease-in-out;
+
+	&.sticky {
+		background: #ffffff;
+		
+		a {
+			color: #252525;
+		}
+
+		a:hover {
+			border-bottom: 2px solid #2e51a2;
+		}
+	}
 
 	.logo {
 		font-weight: bold;
@@ -23,12 +39,12 @@ const NavigationWrapper = styled.div`
 	}
 
 	a {
-		transition: all 0.5s ease-in-out;
+		transition: border-bottom 0.2s;
 	}
 
 	a:hover {
 		text-decoration: none;
-		text-shadow: 2px 2px 10px #ffffff;
+		border-bottom: 2px solid #2e51a2;
 	}
 
 	img.search:hover {
@@ -108,6 +124,17 @@ const SlideoutMenu = styled.div`
 
 const Navigation = () => {
 
+	useEffect(() => {
+		window.addEventListener('scroll', () => {
+			const navigation = document.getElementById('navigation');
+			if (navigation && document.documentElement.scrollTop > 50) {
+				navigation.classList.add('sticky');
+			} else if (document.documentElement.scrollTop < 50) {
+				navigation.classList.remove('sticky');
+			}
+		})
+	}, []);
+
 	const [isNavOpen, setIsNavOpen] = useState("");
 
 	const navigationItems = [
@@ -150,7 +177,7 @@ const Navigation = () => {
 
 	return (
 		<>
-			<NavigationWrapper>
+			<NavigationWrapper id="navigation">
 				<div className="logo"><Link className="navLink" href="/#top">MyAnimeList.net</Link></div>
 				<NavigationList>
 					{navigationItems.map((item) => (

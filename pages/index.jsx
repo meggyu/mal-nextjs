@@ -10,7 +10,7 @@ import {
 	getAnimeById,
 	getAnimeBySeason
 } from "../helpers/apiUrls";
-import List from '../components/common/list';
+
 import LoadingCard from "../components/common/loadingCard";
 import ForumSection from "../components/homepage/forumSection";
 import HorizontalList from "../components/common/horizontalList";
@@ -19,16 +19,36 @@ import NewsSection from "../components/homepage/newsSection";
 
 const HomeWrapper = styled.div`
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
-`;
+	align-items: center;
 
-const LeftSection = styled.div`
-	flex: 2.5;
-	margin-right: 60px;
-`;
+	.wideSection-news {
+		background: linear-gradient(to right,#3e4046 0%,#000 100%);
+		width: 100%;
+		margin: 50px 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 
-const RightSection = styled.div`
-	flex: 1;
+		/* .newsBackground {
+			background-image: url('https://i.pinimg.com/originals/42/26/8f/42268ff9ae112984ac81a7a9338ff306.jpg');
+			background-repeat: no-repeat;
+			width: 100%;
+			height: 100%;
+
+			&:after {
+				content: '';
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: brightness(0.4);
+				background: linear-gradient(to right, transparent 0%, #000000 100%);
+			}
+		} */
+	}
 `;
 
 const Home = ({
@@ -68,14 +88,17 @@ const Home = ({
 			
 			<HomeWrapper>
 				<div className="page">
-					<LeftSection>
-						<h3 className="section">Top Airing Anime</h3>
-						<HorizontalList anime={airingAnime} />
+					<h1 className="section">Top Airing Anime</h1>
+					<HorizontalList anime={airingAnime} />
 
-						<h3 className="section">Top Upcoming Anime</h3>
-						<HorizontalList anime={upcomingAnime} />
+					<h1 className="section">Top Upcoming Anime</h1>
+					<HorizontalList anime={upcomingAnime} />
+				</div>
 
-						<h3 className="section">News</h3>
+				<div className="wideSection-news">
+					<div className="newsBackground"></div>
+					<div className="page">
+						<h1 className="section">News</h1>
 						{isNewsLoading ?
 							<>
 								<LoadingCard height={430} />
@@ -84,23 +107,23 @@ const Home = ({
 							:
 							<NewsSection news={news} />
 						}
-					</LeftSection>
+					</div>
+				</div>
 
-					<RightSection>
-						<h3 className="section">Forums</h3>
-						{isForumsLoading ?
-							<>
-								<LoadingCard height={150} />
-								<LoadingCard height={150} />
-								<LoadingCard height={150} />
-							</>
-							:
-							<ForumSection forums={forumBoards} />
-						}
+				<div className="page">
+					<h1 className="section">Most Popular Anime</h1>
+					<HorizontalList anime={popularAnime} />
 
-						<h3 className="section">Most Popular Anime</h3>
-						<List anime={popularAnime} />
-					</RightSection>
+					<h1 className="section">Forums</h1>
+					{isForumsLoading ?
+						<>
+							<LoadingCard height={150} />
+							<LoadingCard height={150} />
+							<LoadingCard height={150} />
+						</>
+						:
+						<ForumSection forums={forumBoards} />
+					}
 				</div>
 			</HomeWrapper>
 		</>
@@ -109,7 +132,7 @@ const Home = ({
 
 export async function getStaticProps() {
 	// Get Seasonal Anime
-	const seasonalUrl = getAnimeBySeason(2022, 'summer', 5);
+	const seasonalUrl = getAnimeBySeason(2022, 'fall', 5);
 	const seasonalAnime = await axios
 		.get(seasonalUrl, {
 			headers: { 'X-MAL-CLIENT-ID': 'e348f8ee5084215dcced2fd6ba8fb012' }
