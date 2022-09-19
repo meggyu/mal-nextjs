@@ -8,26 +8,45 @@ const colorArray = [
   "#c97821",
   "#ca5959",
   "#945ebd",
-  "#25558f"
+  "#25558f",
+  "#5ebd94",
+  "#458fe0"
 ];
 
-const ForumWrapper = styled.div``;
+const ForumWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  a.moreButton {
+    flex-basis: 100%;
+    justify-content: flex-end;
+    display: flex;
+    margin-top: 20px;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+`;
 
 const Forum = styled.div`
   margin: 20px 0;
   display: flex;
   align-items: center;
+  flex-basis: 48%;
 `;
 
 const Initial = styled.div(props => ({
   width: '50px',
   height: '50px',
   border: `2px solid ${props.color}`,
+  background: props.color,
   'border-radius': '100px',
   display: 'flex',
   'justify-content': 'center',
   'align-items': 'center',
-  color: props.color
+  color: '#ffffff',
 }));
 
 const Post = styled.div`
@@ -38,11 +57,20 @@ const Post = styled.div`
     margin-left: 15px;
   }
 
+  a.post:hover {
+    text-decoration: none;
+  }
+
   .textBubble {
     background-color: #151515;
     padding: 15px;
     border-radius: 10px;
     margin: 10px 0;
+    transition: background-color 0.5s ease-in-out;
+
+    &:hover {
+      background-color: black;
+    }
   }
 
   h4 {
@@ -72,7 +100,7 @@ const ForumSection = (props) => {
             <Initial color={initialColor}><h2>{el.created_by.name[0].toUpperCase()}</h2></Initial>
             <Post>
               <div className="details author">{el.created_by.name} wrote...</div>
-              <a href={`https://myanimelist.net/forum/?topicid=${el.id}`} target="_blank" rel="noreferrer">
+              <a href={`https://myanimelist.net/forum/?topicid=${el.id}`} className="post" target="_blank" rel="noreferrer">
                 <div className="textBubble">
                   <h4>{el.title}</h4>
                   <div className="details">
@@ -89,6 +117,9 @@ const ForumSection = (props) => {
           </Forum>
         )
       })}
+      <a href="https://myanimelist.net/forum/" className="moreButton" target="_blank" rel="noreferrer">
+        <button className="secondary">All Forums →</button>
+      </a>
     </ForumWrapper>
   );
 };

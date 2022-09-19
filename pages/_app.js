@@ -1,7 +1,7 @@
 import Layout from '../components/layout';
 import '../styles/globals.css'
 
-const MyApp = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }) => {
   return (
     <Layout>
       <Component {...pageProps} />
@@ -9,4 +9,4 @@ const MyApp = ({ Component, pageProps }) => {
   );
 }
 
-export default MyApp;
+export default App;

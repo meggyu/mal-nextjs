@@ -11,7 +11,6 @@ const FeaturedCarouselWrapper = styled.div`
   justify-content: center;
   padding: 50px 0;
   margin-top: 61px;
-  /* height: 45vh; */
   background-color: #000000;
 
   .carousel-root {
@@ -133,6 +132,7 @@ const FeaturedCarousel = (props) => {
       <Carousel
         showStatus={false}
         showThumbs={false}
+        interval={5000}
         selectedItem={currentSlide}
         infiniteLoop
         emulateTouch

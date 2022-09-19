@@ -80,7 +80,6 @@ const Home = ({
 				</div>
 
 				<div className="wideSection-news">
-					<div className="newsBackground"></div>
 					<div className="page">
 						<h1 className="section">News</h1>
 						{isNewsLoading ?
@@ -96,11 +95,10 @@ const Home = ({
 				<div className="page">
 					<h1 className="section">Most Popular Anime</h1>
 					<HorizontalList anime={popularAnime} />
-
+					
 					<h1 className="section">Forums</h1>
 					{isForumsLoading ?
 						<>
-							<LoadingCard height={150} />
 							<LoadingCard height={150} />
 							<LoadingCard height={150} />
 						</>

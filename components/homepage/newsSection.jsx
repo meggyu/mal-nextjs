@@ -111,29 +111,28 @@ const NewsSection = (props) => {
           const randomNum = getRandomNum(6);
           const thumbnailColor = colorArray[randomNum];
 
-          return (
-            <Article key={post.id}>
-              {thumbnail ?
-                <div className="thumbnail" dangerouslySetInnerHTML={createMarkup(thumbnail)}></div>
-                :
-                <div className="thumbnail" style={{ backgroundColor: thumbnailColor }}></div>
-              }
-              <a href={`https://myanimelist.net/news/${post.id}`} target="_blank" rel="noreferrer">
-                <h3>{item.title}</h3>
-              </a>
-              {item.posts.length > 0 &&
-                <>
-                  <div className="details">{moment(post.created_at).format("MM/DD/YYYY, HH:mm")}</div>
-                  <ArticleFooter>
-                    <div className="details">✎ Written by {post.created_by.name}</div>
-                    {/* <a href={`https://myanimelist.net/news/${post.id}`} target="_blank" rel="noreferrer">
-                      <button className="primary">Keep reading →</button>
-                    </a> */}
-                  </ArticleFooter>
-                </>
-              }
-            </Article>
-          )
+          if (post) {
+            return (
+              <Article key={post.id}>
+                <a href={`https://myanimelist.net/news/${post.id}`} target="_blank" rel="noreferrer">
+                  {thumbnail ?
+                    <div className="thumbnail" dangerouslySetInnerHTML={createMarkup(thumbnail)}></div>
+                    :
+                    <div className="thumbnail" style={{ backgroundColor: thumbnailColor }}></div>
+                  }
+                  <h3>{item.title}</h3>
+                </a>
+                {item.posts.length > 0 &&
+                  <>
+                    <div className="details">{moment(post.created_at).format("MM/DD/YYYY, HH:mm")}</div>
+                    <ArticleFooter>
+                      <div className="details">✎ Posted by {post.created_by.name}</div>
+                    </ArticleFooter>
+                  </>
+                }
+              </Article>
+            )
+          }
         })}
       </ArticleWrapper>
 
