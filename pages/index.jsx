@@ -26,28 +26,12 @@ const HomeWrapper = styled.div`
 	.wideSection-news {
 		background: linear-gradient(to right,#3e4046 0%,#000 100%);
 		width: 100%;
-		margin: 50px 0;
+		margin: 50px 0 0;
+		padding-bottom: 50px;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-
-		/* .newsBackground {
-			background-image: url('https://i.pinimg.com/originals/42/26/8f/42268ff9ae112984ac81a7a9338ff306.jpg');
-			background-repeat: no-repeat;
-			width: 100%;
-			height: 100%;
-
-			&:after {
-				content: '';
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        backdrop-filter: brightness(0.4);
-				background: linear-gradient(to right, transparent 0%, #000000 100%);
-			}
-		} */
 	}
 `;
 
@@ -101,7 +85,6 @@ const Home = ({
 						<h1 className="section">News</h1>
 						{isNewsLoading ?
 							<>
-								<LoadingCard height={430} />
 								<LoadingCard height={430} />
 							</>
 							:

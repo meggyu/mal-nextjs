@@ -2,22 +2,35 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 
-import textParser from '../../helpers/textParser';
+import { textParser, getThumbnail } from '../../helpers/textParser';
 import createMarkup from '../../helpers/createMarkup';
 
+const colorArray = [
+  "#e3bd41",
+  "#46903c",
+  "#c97821",
+  "#ca5959",
+  "#945ebd",
+  "#25558f"
+];
+
 const NewsWrapper = styled.div`
-  
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Article = styled.div`
-  border-bottom: 1px solid #aaaaaa;
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  width: 360px;
 
-  img.thumbnail {
-    height: 240px;
-    float: left;
-    margin-right: 20px;
-    margin-bottom: 10px;
+  .thumbnail, .thumbnail img {
+    height: 150px;
+    width: 360px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 7px;
   }
 
   h1 {
@@ -27,11 +40,15 @@ const Article = styled.div`
   .snippet {
     display: -webkit-box;
     line-height: 1.5;
-    height: 240px;
-    -webkit-line-clamp: 5;
+    height: 120px;
+    -webkit-line-clamp: 8;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    img {
+      display: none;
+    }
 
     a {
       color: #a0bdff;
@@ -42,7 +59,8 @@ const Article = styled.div`
 const ArticleFooter = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 30px 0;
+  align-items: center;
+  margin: 30px 0 0;
 
   a {
     color: #ffffff;
@@ -54,6 +72,10 @@ const ArticleFooter = styled.div`
 `;
 
 const NewsSection = (props) => {
+
+  const getRandomNum = (max) => {
+    return Math.floor(Math.random() * max);
+  };
 
   const { news } = props;
 
@@ -67,16 +89,26 @@ const NewsSection = (props) => {
           post = item.posts[0];
           parsedSnippet = textParser(post.body);
         }
-        
+
+        let thumbnail = getThumbnail(parsedSnippet);
+        if (thumbnail) thumbnail += "/>";
+
+        const randomNum = getRandomNum(6);
+        const thumbnailColor = colorArray[randomNum];
+
         return (
           <Article key={post.id}>
-            <div className="details">{moment(post.created_at).format("MM/DD/YYYY, HH:mm")}</div>
+            {thumbnail ?
+              <div className="thumbnail" dangerouslySetInnerHTML={createMarkup(thumbnail)}></div>
+              :
+              <div className="thumbnail" style={{ backgroundColor: thumbnailColor }}></div>
+            }
             <a href={`https://myanimelist.net/news/${post.id}`} target="_blank" rel="noreferrer">
-              <h1>{item.title}</h1>
+              <h2>{item.title}</h2>
             </a>
             {item.posts.length > 0 &&
               <>
-                <p className="snippet" dangerouslySetInnerHTML={createMarkup(parsedSnippet)}></p>
+                <div className="details">{moment(post.created_at).format("MM/DD/YYYY, HH:mm")}</div>
                 <ArticleFooter>
                   <div className="details">✎ Written by {post.created_by.name}</div>
                   <a href={`https://myanimelist.net/news/${post.id}`} target="_blank" rel="noreferrer">

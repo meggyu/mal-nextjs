@@ -2,7 +2,7 @@ import axios from "axios";
 import { getForumsByBoardId } from "../../helpers/apiUrls";
 
 export default async function getForums(req, res) {
-  const forumsUrl = getForumsByBoardId(1, 3, 3);
+  const forumsUrl = getForumsByBoardId(1, 3, 4);
   const forums = await axios
     .get(forumsUrl, {
       headers: {

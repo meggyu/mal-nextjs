@@ -1,8 +1,8 @@
 import axios from "axios";
 import { getForumsByBoardId, getArticleById } from "../../helpers/apiUrls";
 
-export default async function getForums(req, res) {
-  const newsUrl = getForumsByBoardId(15, 1, 2);
+export default async function getNews(req, res) {
+  const newsUrl = getForumsByBoardId(15, 1, 3);
   const result = await axios
     .get(newsUrl, {
       headers: {

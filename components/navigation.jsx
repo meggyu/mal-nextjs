@@ -173,8 +173,6 @@ const Navigation = () => {
 		}
 	];
 
-	console.log(isNavOpen);
-
 	return (
 		<>
 			<NavigationWrapper id="navigation">
