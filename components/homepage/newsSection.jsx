@@ -137,7 +137,7 @@ const NewsSection = (props) => {
         })}
       </ArticleWrapper>
 
-      <a href="https://myanimelist.net/news" target="_blank" className="moreButton">
+      <a href="https://myanimelist.net/news" className="moreButton" target="_blank" rel="noreferrer">
         <button className="secondary">More News →</button>
       </a>
     </NewsWrapper>
