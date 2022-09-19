@@ -39,13 +39,25 @@ p > a {
   padding: 0 20px;
 }
 
+div.section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 60px;
+}
+
+.section a {
+  color: #aaaaaa;
+}
+
 .details {
   flex: 1;
   color: #bebebe;
 }
 
-h1.section {
-  margin-top: 60px;
+h1.withPadding {
+  padding-top: 60px;
 }
 
 h3.section {

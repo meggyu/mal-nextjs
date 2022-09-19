@@ -26,8 +26,8 @@ const HomeWrapper = styled.div`
 	.wideSection-news {
 		background: linear-gradient(to right,#202c46 0%,#000 100%);
 		width: 100%;
-		margin: 50px 0 0;
-		padding-bottom: 50px;
+		margin: 60px 0 0;
+		padding: 60px 0 80px;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -72,16 +72,30 @@ const Home = ({
 			
 			<HomeWrapper>
 				<div className="page">
-					<h1 className="section">Top Airing Anime</h1>
-					<HorizontalList anime={airingAnime} />
 
-					<h1 className="section">Top Upcoming Anime</h1>
+					{/* Top Airing Anime */}
+					<div className="section">
+						<h1>Top Airing Anime</h1>
+						<a href="https://myanimelist.net/topanime.php?type=airing" target="_blank" rel="noreferrer">
+							More →
+						</a>
+					</div>
+					<HorizontalList anime={airingAnime} />
+					
+					{/* Top Upcoming Anime */}
+					<div className="section">
+						<h1>Top Upcoming Anime</h1>
+						<a href="https://myanimelist.net/topanime.php?type=upcoming" target="_blank" rel="noreferrer">
+							More →
+						</a>
+					</div>
 					<HorizontalList anime={upcomingAnime} />
 				</div>
 
+				{/* News */}
 				<div className="wideSection-news">
 					<div className="page">
-						<h1 className="section">News</h1>
+						<h1>News</h1>
 						{isNewsLoading ?
 							<>
 								<LoadingCard height={430} />
@@ -93,10 +107,17 @@ const Home = ({
 				</div>
 
 				<div className="page">
-					<h1 className="section">Most Popular Anime</h1>
+					{/* Most Popular Anime */}
+					<div className="section">
+						<h1>Most Popular Anime</h1>
+						<a href="https://myanimelist.net/topanime.php?type=bypopularity" target="_blank" rel="noreferrer">
+							More →
+						</a>
+					</div>
 					<HorizontalList anime={popularAnime} />
 					
-					<h1 className="section">Forums</h1>
+					{/* Forums */}
+					<h1 className="withPadding">Forums</h1>
 					{isForumsLoading ?
 						<>
 							<LoadingCard height={150} />

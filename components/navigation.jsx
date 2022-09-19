@@ -176,7 +176,7 @@ const Navigation = () => {
 	return (
 		<>
 			<NavigationWrapper id="navigation">
-				<div className="logo"><Link className="navLink" href="/#top">MyAnimeList.net</Link></div>
+				<div className="logo"><Link className="navLink" href="/">MyAnimeList.net</Link></div>
 				<NavigationList>
 					{navigationItems.map((item) => (
 						<div key={item.title}>
