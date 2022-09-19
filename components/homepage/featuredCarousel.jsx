@@ -11,6 +11,7 @@ const FeaturedCarouselWrapper = styled.div`
   justify-content: center;
   padding: 50px 0;
   margin-top: 61px;
+  /* height: 45vh; */
   background-color: #000000;
 
   .carousel-root {
@@ -85,6 +86,7 @@ const Thumb = styled.div(props =>
       height: 105px;
       background-image: url(${props.background});
       background-position: center center;
+      background-repeat: no-repeat;
       transition: backdrop-filter 0.5s ease-in-out;
 
       &:after {

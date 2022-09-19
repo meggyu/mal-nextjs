@@ -15,6 +15,18 @@ const colorArray = [
 ];
 
 const NewsWrapper = styled.div`
+
+  .moreButton {
+    display: flex;
+    justify-content: flex-end;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+`;
+
+const ArticleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
@@ -24,6 +36,8 @@ const Article = styled.div`
   flex-direction: column;
   align-items: space-between;
   width: 360px;
+  border-bottom: 1.5px solid #ffffff;
+  margin-bottom: 30px;
 
   .thumbnail, .thumbnail img {
     height: 150px;
@@ -60,7 +74,7 @@ const ArticleFooter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 30px 0 0;
+  margin: 30px 0;
 
   a {
     color: #ffffff;
@@ -81,46 +95,51 @@ const NewsSection = (props) => {
 
   return (
     <NewsWrapper>
-      {news && news.map(el => {
-        const item = el.data;
-        let post;
-        let parsedSnippet;
-        if (item.posts.length > 0) {
-          post = item.posts[0];
-          parsedSnippet = textParser(post.body);
-        }
+      <ArticleWrapper>
+        {news && news.map(el => {
+          const item = el.data;
+          let post;
+          let parsedSnippet;
+          if (item.posts.length > 0) {
+            post = item.posts[0];
+            parsedSnippet = textParser(post.body);
+          }
 
-        let thumbnail = getThumbnail(parsedSnippet);
-        if (thumbnail) thumbnail += "/>";
+          let thumbnail = getThumbnail(parsedSnippet);
+          if (thumbnail) thumbnail += "/>";
 
-        const randomNum = getRandomNum(6);
-        const thumbnailColor = colorArray[randomNum];
+          const randomNum = getRandomNum(6);
+          const thumbnailColor = colorArray[randomNum];
 
-        return (
-          <Article key={post.id}>
-            {thumbnail ?
-              <div className="thumbnail" dangerouslySetInnerHTML={createMarkup(thumbnail)}></div>
-              :
-              <div className="thumbnail" style={{ backgroundColor: thumbnailColor }}></div>
-            }
-            <a href={`https://myanimelist.net/news/${post.id}`} target="_blank" rel="noreferrer">
-              <h2>{item.title}</h2>
-            </a>
-            {item.posts.length > 0 &&
-              <>
-                <div className="details">{moment(post.created_at).format("MM/DD/YYYY, HH:mm")}</div>
-                <ArticleFooter>
-                  <div className="details">✎ Written by {post.created_by.name}</div>
-                  <a href={`https://myanimelist.net/news/${post.id}`} target="_blank" rel="noreferrer">
-                    <button className="primary">Keep reading →</button>
-                  </a>
-                </ArticleFooter>
-              </>
-            }
-          </Article>
-        )
-      })}
+          return (
+            <Article key={post.id}>
+              {thumbnail ?
+                <div className="thumbnail" dangerouslySetInnerHTML={createMarkup(thumbnail)}></div>
+                :
+                <div className="thumbnail" style={{ backgroundColor: thumbnailColor }}></div>
+              }
+              <a href={`https://myanimelist.net/news/${post.id}`} target="_blank" rel="noreferrer">
+                <h3>{item.title}</h3>
+              </a>
+              {item.posts.length > 0 &&
+                <>
+                  <div className="details">{moment(post.created_at).format("MM/DD/YYYY, HH:mm")}</div>
+                  <ArticleFooter>
+                    <div className="details">✎ Written by {post.created_by.name}</div>
+                    {/* <a href={`https://myanimelist.net/news/${post.id}`} target="_blank" rel="noreferrer">
+                      <button className="primary">Keep reading →</button>
+                    </a> */}
+                  </ArticleFooter>
+                </>
+              }
+            </Article>
+          )
+        })}
+      </ArticleWrapper>
 
+      <a href="https://myanimelist.net/news" target="_blank" className="moreButton">
+        <button className="secondary">More News →</button>
+      </a>
     </NewsWrapper>
   );
 };

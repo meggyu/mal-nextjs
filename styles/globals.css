@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,700;1,400;1,700&display=swap');
 
-@import './butons.css';
+@import './buttons.css';
 
 html, body {
   width: 100%;
@@ -40,6 +40,7 @@ p > a {
 }
 
 .details {
+  flex: 1;
   color: #bebebe;
 }
 

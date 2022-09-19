@@ -24,7 +24,7 @@ const HomeWrapper = styled.div`
 	align-items: center;
 
 	.wideSection-news {
-		background: linear-gradient(to right,#3e4046 0%,#000 100%);
+		background: linear-gradient(to right,#202c46 0%,#000 100%);
 		width: 100%;
 		margin: 50px 0 0;
 		padding-bottom: 50px;
