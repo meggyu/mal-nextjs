@@ -10,11 +10,19 @@ const FeaturedCarouselWrapper = styled.div`
   align-items: center;
   justify-content: center;
   padding: 50px 0;
-  margin-top: 61px;
+  margin-top: 56px;
   background-color: #000000;
 
   .carousel-root {
-    width: 1200px;
+    width: auto;
+  }
+
+  @media screen and (min-width: 1280px) {
+    margin-top: 61px;
+
+    .carousel-root {
+      width: 1200px;
+    }
   }
 `;
 
@@ -29,14 +37,19 @@ const Background = styled.img`
 `;
 
 const Description = styled.div`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  left: 0;
-  bottom: 20px;
-  padding: 0 50px;
+  display: none;
+
+  @media screen and (min-width: 1280px) {
+    display: flex;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    left: 0;
+    bottom: 20px;
+    padding: 0 50px;
+  }
 
   img {
     width: 180px !important;
@@ -119,11 +132,11 @@ const FeaturedCarousel = (props) => {
   
   const { featured } = props;
   const backgroundImages = [
-    'https://static1.colliderimages.com/wordpress/wp-content/uploads/2022/04/Spy-x-Family.jpg',
-    'https://thecinemaholic.com/wp-content/uploads/2021/09/Screenshot-2021-09-25-221941.jpg',
-    'https://i0.wp.com/twinfinite.net/wp-content/uploads/2021/12/Bleach-6.jpg?ssl=1',
-    'https://assets.pikiran-rakyat.com/crop/0x0:0x0/x/photo/2021/04/13/3396190008.jpg',
-    'https://www.theanimedaily.com/wp-content/uploads/2022/04/Blue-Lock-Anime-Release-Date-1024x576.jpg'
+    'https://nami.news/wordpress/wp-content/uploads/2024/02/Tokidoki-Bosotto-Russia-go-de-Dereru-Tonari-no-Alya-san-Anime-Key-Visual-scaled-e1708336968142.webp',
+    'https://static1.cbrimages.com/wordpress/wp-content/uploads/2023/08/lucy-happy-the-cat-and-natsu-in-the-fairy-tal-anime.jpg',
+    'https://a.storyblok.com/f/178900/960x540/f9731c1847/suicide-squad-isekai.jpg/m/filters:quality(95)format(webp)',
+    'https://pbs.twimg.com/media/Ejvz4LaXkAIgc9z.jpg:large',
+    'https://en.anmosugoi.com/wp-content/uploads/2024/03/Gimai-Seikatsu-visual-min.webp',
   ];
   const parsedList = [];
 
@@ -148,7 +161,7 @@ const FeaturedCarousel = (props) => {
                 <Background src={backgroundImages[index]} />
                 <Description>
                   <h1>{item.title}</h1>
-                  <h3 className="section">Fall 2022</h3>
+                  <h3 className="section">Summer 2024</h3>
                 </Description>
               </div>
             </a>

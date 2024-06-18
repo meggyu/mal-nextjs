@@ -1,4 +1,5 @@
-import axios from "axios"
+import axios from 'axios';
+import moment from 'moment';
 import React, {
 	useEffect,
 	useState,
@@ -9,7 +10,9 @@ import {
 	getAnimeUrlByRanking,
 	getAnimeById,
 	getAnimeBySeason
-} from "../helpers/apiUrls";
+} from '../helpers/apiUrls';
+
+import getCurrentSeason from '../helpers/getCurrentSeason';
 
 import LoadingCard from "../components/common/loadingCard";
 import ForumSection from "../components/homepage/forumSection";
@@ -134,7 +137,10 @@ const Home = ({
 
 export async function getStaticProps() {
 	// Get Seasonal Anime
-	const seasonalUrl = getAnimeBySeason(2022, 'fall', 5);
+	const date = new Date();
+	const currentSeason = getCurrentSeason(date.getMonth());
+	const currentYear = date.getFullYear();
+	const seasonalUrl = getAnimeBySeason(currentYear, currentSeason, 5);
 	const seasonalAnime = await axios
 		.get(seasonalUrl, {
 			headers: { 'X-MAL-CLIENT-ID': 'e348f8ee5084215dcced2fd6ba8fb012' }
@@ -201,7 +207,7 @@ export async function getStaticProps() {
 	});
 
 	const popularArray = Promise.all(popularIds.map(id => {
-		const fields = ['id', 'title', 'main_picture', 'mean', 'num_list_users', 'media_type'];
+		const fields = ['id', 'title', 'main_picture', 'mean', 'num_list_users', 'media_type', 'num_episodes'];
 		const animeUrl = getAnimeById(id, fields);
 		return axios
 			.get(animeUrl, {
@@ -209,7 +215,6 @@ export async function getStaticProps() {
 			})
 			.then(({ data }) => {
 				return data;
-
 			})
 			.catch(({ err }) => {
 				return err;

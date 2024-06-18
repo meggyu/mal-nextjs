@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import List from '../../components/common/list';
 import capitalize from '../../helpers/capitalize';
+import HorizontalList from '../../components/common/horizontalList';
 import { getAnimeById } from '../../helpers/apiUrls';
 
 const DetailWrapper = styled.div`
@@ -20,10 +21,9 @@ const DetailWrapper = styled.div`
 `
 
 const MainSection = styled.div`
-  @media screen and (min-width: 1080px) {
-    flex: 2.5;
-    margin-right: 60px;
-  }
+  border-bottom: 1px solid #4e4e4e;
+  margin-bottom: 20px;
+  padding-bottom: 50px;
 
   h1 {
     margin-bottom: 5px;
@@ -78,7 +78,7 @@ const Stats = styled.div`
       }
 
       @media screen and (min-width: 1080px) {
-        border: 3px solid #262626;
+        border: 3px solid #4e4e4e;
         border-radius: 10px;
         width: 180px;
       }
@@ -127,7 +127,7 @@ const Synopsis = styled.div`
 `;
 
 const RecommendedSection = styled.div`
-  flex: 1;
+  margin-bottom: 50px;
 `;
 
 const DetailPage = ({ details, recommendedAnime }) => {
@@ -218,6 +218,7 @@ const DetailPage = ({ details, recommendedAnime }) => {
                 <div>{media}</div>
               </div>
               
+              <br />
               <div className="information">
                 <div className="left">
                   {Object.keys(information).map(el => {
@@ -245,6 +246,7 @@ const DetailPage = ({ details, recommendedAnime }) => {
           
           <Synopsis>
             <div>{details.synopsis}</div>
+            <br />
             <h2 className="sectionHeading">Background</h2>
             {details.background ?
               <div>{details.background}</div>
@@ -255,16 +257,28 @@ const DetailPage = ({ details, recommendedAnime }) => {
         </MainSection>
 
         <RecommendedSection>
-          <h2>Explore Recommendations</h2>
+          <h2>Recommendations</h2>
           <p>Here’re what other users recommend based on this title.</p>
-          <List anime={recommendedAnime} />
+          <HorizontalList anime={recommendedAnime} />
         </RecommendedSection>
       </div>
     </DetailWrapper>
   )
 };
 
+// export async function getStaticPaths() {
+//   return {
+//     paths: [],
+//     fallback: 'blocking'
+//   }
+// }
+
+// export async function getStaticProps() {
+  
+// }
+
 export async function getServerSideProps({ params }) {
+  console.log(params);
   const fields = [
     "id",
     "title",
